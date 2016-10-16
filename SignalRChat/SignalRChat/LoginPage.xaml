@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SignalRChat.LoginPage">
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness"
+			iOS="10,20,10,10"
+			Android="10,10,10,10"/>
+  </ContentPage.Padding>
+  <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+    <StackLayout Padding="0,0,0,50" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+      <BoxView HeightRequest="5" WidthRequest="50" HorizontalOptions="Center" BackgroundColor="#A2FFB0"/>
+      <Label Text="Chat" XAlign="Center" FontSize="Large" TextColor="Accent" FontAttributes="Bold"/>
+      <BoxView HeightRequest="5" WidthRequest="50" HorizontalOptions="Center" BackgroundColor="#A2FFB0"/>
+    </StackLayout>
+    <Entry x:Name="NameEntry" Placeholder="Enter your name"/>
+    <Grid Padding="0,20">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Label
+				Grid.Row="0"
+				Grid.ColumnSpan="3"
+				Text="Choose your color"
+				TextColor="Gray"
+				HorizontalTextAlignment="Center"
+				/>
+
+      <Button Grid.Row="1" Grid.Column="0" Clicked="ColorBtnClicked" CommandParameter="0" BackgroundColor="Aqua" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+      <Button Grid.Row="1" Grid.Column="1" Clicked="ColorBtnClicked" CommandParameter="1" BackgroundColor="#A2FFB0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+      <Button Grid.Row="1" Grid.Column="2" Clicked="ColorBtnClicked" CommandParameter="2" BackgroundColor="#FFD9C4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+
+    </Grid>
+    <Button Text="Login" Clicked="LoginBtnClicked" BackgroundColor="Accent" TextColor="White" FontAttributes="Bold" />
+  </StackLayout>
+</ContentPage>

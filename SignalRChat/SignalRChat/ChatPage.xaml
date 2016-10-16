@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SignalRChat.ChatPage">
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness"
+			iOS="10,20,10,10"
+			Android="10,10,10,10"/>
+  </ContentPage.Padding>
+  <Grid x:Name="mainGrid">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="6*"/>
+      <RowDefinition Height="2*"/>
+      <RowDefinition Height="0*"/>
+    </Grid.RowDefinitions>
+    <ScrollView Grid.Row="0">
+      <ListView
+          ItemsSource="{Binding Messages}"
+          HasUnevenRows="true"
+          SeparatorColor="White"
+				>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Padding="{Binding Pad}">
+                <Grid BackgroundColor="{Binding Color}">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                  </Grid.RowDefinitions>
+                  <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="End" Padding="10">
+                    <Label
+                      Text="{Binding Name}"
+                      TextColor="Accent"
+                      FontAttributes="Bold"
+                      FontSize="Small"
+								/>
+                  </StackLayout>
+                  <StackLayout Grid.Row="1" VerticalOptions="CenterAndExpand" Padding="10">
+                    <Label
+                      Text="{Binding Message}"
+                      TextColor="Gray"
+                      FontSize="Small"
+								/>
+                  </StackLayout>
+                </Grid>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </ScrollView>
+    <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+      <Label Text="Enter message" FontSize="Small" TextColor="Silver"/>
+      <Entry x:Name="messageEntry" Keyboard="Chat" FontSize="Small" Text="{Binding Message}" Focused="HandleFocused" Unfocused="HandleUnfocused" />
+      <Button x:Name="sendButton" Command="{Binding SendMessageCommand}" Text="Send" HorizontalOptions="FillAndExpand" BackgroundColor="Accent" TextColor="White"/>
+    </StackLayout>
+  </Grid>
+</ContentPage>

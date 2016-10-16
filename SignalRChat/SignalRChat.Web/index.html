@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Radar Rabbit Web Chat</title>
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        SignalR Chat
+                    </div>
+                    <div class="panel-body">
+                        <ul id="discussion"></ul>
+                        <div class="form-group">
+                            <label class="control-label"></label>
+                            <input type="text" id="message" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" id="sendmessage">Send</button>
+                        <input type="hidden" id="displayname" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+    $(function() {
+        var chat = $.connection.chatHub;
+        chat.client.broadcastMessage = function(name, color, message) {
+            var encodedName = $('<div/>').text(name).html();
+            var encodedMsg = $('<div/>').text(message).html();
+            $('#discussion')
+                .append('<li><strong>' + encodedName + '</strong>&nbsp;&nbsp;' + encodedMsg + '</li>');
+        };
+
+         $('#displayname').val(prompt('Enter you name: ', ''));
+         $('#message').focus();
+
+        $.connection.hub.start().done(function() {
+            $('#sendmessage').click(function() {
+                chat.server.send($('#displayname').val(), 0, $('#message').val());
+                $('#message').val('').focus();
+            });
+        });
+    });
+    </script>
+</body>
+</html>
